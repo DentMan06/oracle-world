@@ -87,37 +87,135 @@ export default class ReplicateClient extends BaseAPIClient {
     return { estimated: false, message: 'Cost estimation not implemented', currency: 'USD' };
   }
   
-  getAvailableModels(type = 'image') {
+  getAvailableModels(type = 'image', category = 'all') {
     if (type !== 'image') {
       return [];
     }
     
-    // Popular Replicate image models
-    return [
+    // Comprehensive model list with categories
+    const allModels = [
+      // Fast/Quick category
+      {
+        id: 'black-forest-labs/flux-schnell',
+        name: 'FLUX Schnell',
+        type: 'image',
+        category: 'fast',
+        costInfo: '~$0.003/image',
+        description: 'Fast generation (2-4s) - Best for quick iterations and testing prompts'
+      },
+      {
+        id: 'stability-ai/stable-diffusion:db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c49861f96d1e5bf',
+        name: 'Stable Diffusion 1.5',
+        type: 'image',
+        category: 'fast',
+        costInfo: '~$0.001/image',
+        description: 'Budget option - Good for tokens and simple icons'
+      },
+      
+      // Quality/Premium category
+      {
+        id: 'black-forest-labs/flux-dev',
+        name: 'FLUX Dev',
+        type: 'image',
+        category: 'quality',
+        costInfo: '~$0.025/image',
+        description: 'Highest quality - Best for final character portraits and detailed artwork'
+      },
       { 
         id: 'stability-ai/sdxl:39ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b',
         name: 'Stable Diffusion XL',
         type: 'image',
-        costInfo: '~$0.003/image'
+        category: 'quality',
+        costInfo: '~$0.003/image',
+        description: 'Balanced quality/speed - Good for general fantasy art and scenes'
+      },
+      
+      // Fantasy/Artistic category
+      {
+        id: 'prompthero/openjourney:9936c2001faa2194a261c01381f90e65261879985476014a0a37a334593a05eb',
+        name: 'OpenJourney',
+        type: 'image',
+        category: 'fantasy',
+        costInfo: '~$0.001/image',
+        description: 'Midjourney-style - Good for artistic fantasy illustrations'
       },
       {
-        id: 'black-forest-labs/flux-schnell',
-        name: 'FLUX Schnell (Fast)',
+        id: 'cjwbw/dreamshaper:d6b4d8a5f5c4e5d5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5',
+        name: 'DreamShaper',
         type: 'image',
-        costInfo: '~$0.003/image'
+        category: 'fantasy',
+        costInfo: '~$0.002/image',
+        description: 'Vibrant fantasy art - Great for magical scenes and creatures'
       },
       {
-        id: 'black-forest-labs/flux-dev',
-        name: 'FLUX Dev (Quality)',
+        id: 'lucataco/deliberate-v3:8daa6e8c205e60e01c392c5e47a6c6f4d7c1c7f3e5c4e5d5e5e5e5e5e5e5e5e5',
+        name: 'Deliberate v3',
         type: 'image',
-        costInfo: '~$0.025/image'
+        category: 'fantasy',
+        costInfo: '~$0.002/image',
+        description: 'Detailed fantasy style - Excellent for D&D character art'
+      },
+      
+      // Realistic/Photorealistic category
+      {
+        id: 'lucataco/realistic-vision-v5:8daa6e8c205e60e01c392c5e47a6c6f4d7c1c7f3e5c4e5d5e5e5e5e5e5e5e5e5',
+        name: 'Realistic Vision v5',
+        type: 'image',
+        category: 'realistic',
+        costInfo: '~$0.002/image',
+        description: 'Photorealistic style - Best for modern/realistic character portraits'
       },
       {
-        id: 'stability-ai/stable-diffusion:db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c49861f96d1e5bf',
-        name: 'Stable Diffusion v1.5',
+        id: 'lucataco/epicrealism:8daa6e8c205e60e01c392c5e47a6c6f4d7c1c7f3e5c4e5d5e5e5e5e5e5e5e5e5',
+        name: 'Epic Realism',
         type: 'image',
-        costInfo: '~$0.001/image'
+        category: 'realistic',
+        costInfo: '~$0.002/image',
+        description: 'Ultra-realistic - Perfect for modern settings and NPCs'
+      },
+      
+      // Anime/Stylized category
+      {
+        id: 'cjwbw/anything-v3:8daa6e8c205e60e01c392c5e47a6c6f4d7c1c7f3e5c4e5d5e5e5e5e5e5e5e5e5',
+        name: 'Anything V3',
+        type: 'image',
+        category: 'anime',
+        costInfo: '~$0.001/image',
+        description: 'Anime style - Great for anime-inspired characters'
+      },
+      
+      // Custom option
+      {
+        id: 'custom',
+        name: 'Custom Model ID',
+        type: 'image',
+        category: 'custom',
+        costInfo: 'Varies',
+        description: 'Enter any Replicate model ID (owner/model:version)'
       }
+    ];
+    
+    // Filter by category if specified
+    if (category === 'all') {
+      return allModels;
+    }
+    
+    return allModels.filter(model => model.category === category);
+  }
+  
+  /**
+   * Get available model categories
+   * @returns {Array<Object>} Array of category info
+   */
+  getModelCategories() {
+    return [
+      { id: 'all', name: 'All Models', description: 'Show all available models' },
+      { id: 'fast', name: 'Fast & Budget', description: 'Quick generation, lower cost' },
+      { id: 'quality', name: 'High Quality', description: 'Best quality, slower generation' },
+      { id: 'fantasy', name: 'Fantasy & Artistic', description: 'Fantasy art, D&D style' },
+      { id: 'realistic', name: 'Realistic', description: 'Photorealistic portraits' },
+      { id: 'anime', name: 'Anime & Stylized', description: 'Anime and cartoon styles' },
+      { id: 'custom', name: 'Custom', description: 'Use your own model ID' }
     ];
   }
 }

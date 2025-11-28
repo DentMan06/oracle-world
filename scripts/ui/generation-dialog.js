@@ -40,6 +40,7 @@ export default class GenerationDialog extends Application {
     }
     
     let models = [];
+    let categories = [];
     if (this.provider) {
       try {
         console.log(`${MODULE_ID} | Getting models for provider: ${this.provider}, type: ${this.generationType}`);
@@ -48,7 +49,14 @@ export default class GenerationDialog extends Application {
         console.log(`${MODULE_ID} | Has getAvailableModels:`, typeof client.getAvailableModels);
         
         if (client.getAvailableModels) {
-          models = client.getAvailableModels(this.generationType);
+          // Get categories if available
+          if (client.getModelCategories) {
+            categories = client.getModelCategories();
+          }
+          
+          // Get models (filtered by category if set)
+          const category = this.modelCategory || 'all';
+          models = client.getAvailableModels(this.generationType, category);
           console.log(`${MODULE_ID} | Models retrieved:`, models);
           
           // Auto-select first model if none selected
@@ -71,9 +79,13 @@ export default class GenerationDialog extends Application {
       type: this.generationType,
       providers,
       models,
+      categories,
       templates,
       currentProvider: this.provider,
       currentModel: this.model,
+      currentCategory: this.modelCategory || 'all',
+      showCustomModelInput: this.model === 'custom',
+      customModelId: this.customModelId || '',
       result: this.result,
       hasResult: !!this.result,
       prompt: this._getDefaultPrompt()
@@ -84,7 +96,9 @@ export default class GenerationDialog extends Application {
     super.activateListeners(html);
     
     html.find('[name="provider"]').change(this._onProviderChange.bind(this));
+    html.find('[name="category"]').change(this._onCategoryChange.bind(this));
     html.find('[name="model"]').change(this._onModelChange.bind(this));
+    html.find('[name="customModelId"]').on('input', this._onCustomModelChange.bind(this));
     html.find('[name="template"]').change(this._onTemplateChange.bind(this));
     html.find('[name="prompt"]').on('input', this._onPromptChange.bind(this));
     html.find('.generate-btn').click(this._onGenerate.bind(this));
@@ -99,9 +113,25 @@ export default class GenerationDialog extends Application {
     this.render();
   }
   
+  async _onCategoryChange(event) {
+    this.modelCategory = event.target.value;
+    this.model = null; // Reset model selection
+    this.render();
+  }
+  
   async _onModelChange(event) {
     this.model = event.target.value;
-    await this._updateCostEstimate();
+    
+    // Show custom input if "custom" is selected
+    if (this.model === 'custom') {
+      this.render();
+    } else {
+      await this._updateCostEstimate();
+    }
+  }
+  
+  async _onCustomModelChange(event) {
+    this.customModelId = event.target.value;
   }
   
   async _onTemplateChange(event) {
@@ -201,10 +231,13 @@ export default class GenerationDialog extends Application {
   }
   
   _buildGenerationParams(formData) {
+    // Use custom model ID if "custom" is selected
+    const modelId = this.model === 'custom' ? this.customModelId : this.model;
+    
     return {
       prompt: formData.get('prompt'),
       negativePrompt: formData.get('negativePrompt'),
-      model: this.model,
+      model: modelId,
       width: parseInt(formData.get('width')) || 1024,
       height: parseInt(formData.get('height')) || 1024,
       count: parseInt(formData.get('count')) || 1,

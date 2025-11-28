@@ -12,17 +12,42 @@
       </select>
     </div>
     
+    {{#if categories.length}}
+    <div class="category-section">
+      <label>Category:</label>
+      <select name="category" class="category-select">
+        {{#each categories}}
+        <option value="{{this.id}}" {{#if (eq this.id ../currentCategory)}}selected{{/if}}>
+          {{this.name}}
+        </option>
+        {{/each}}
+      </select>
+      <small class="category-hint">{{#each categories}}{{#if (eq this.id ../currentCategory)}}{{this.description}}{{/if}}{{/each}}</small>
+    </div>
+    {{/if}}
+    
     <div class="model-section">
       <label>Model:</label>
       <select name="model" class="model-select">
         <option value="">Select a model...</option>
         {{#each models}}
-        <option value="{{this.id}}" {{#if (eq this.id ../currentModel)}}selected{{/if}}>
+        <option value="{{this.id}}" {{#if (eq this.id ../currentModel)}}selected{{/if}} title="{{this.description}}">
           {{this.name}} ({{this.costInfo}})
         </option>
         {{/each}}
       </select>
+      {{#if currentModel}}
+      <small class="model-description">{{#each models}}{{#if (eq this.id ../currentModel)}}{{this.description}}{{/if}}{{/each}}</small>
+      {{/if}}
     </div>
+    
+    {{#if showCustomModelInput}}
+    <div class="custom-model-section">
+      <label>Custom Model ID:</label>
+      <input type="text" name="customModelId" value="{{customModelId}}" placeholder="owner/model:version" />
+      <small>Enter a Replicate model ID (e.g., stability-ai/sdxl:abc123...)</small>
+    </div>
+    {{/if}}
     
     <div class="template-section">
       <label>Template:</label>
