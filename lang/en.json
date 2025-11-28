@@ -1,0 +1,51 @@
+{
+  "ORACLE_WORLD": {
+    "settings": {
+      "openrouterApiKey": {
+        "name": "OpenRouter API Key",
+        "hint": "Your OpenRouter API key"
+      },
+      "openaiApiKey": {
+        "name": "OpenAI API Key",
+        "hint": "Your OpenAI API key"
+      },
+      "anthropicApiKey": {
+        "name": "Anthropic API Key",
+        "hint": "Your Anthropic API key"
+      },
+      "defaultProvider": {
+        "name": "Default Provider",
+        "hint": "The default AI provider to use"
+      },
+      "gmOnlyMode": {
+        "name": "GM Only Mode",
+        "hint": "Only allow GMs to use generation features"
+      },
+      "showCostEstimates": {
+        "name": "Show Cost Estimates",
+        "hint": "Display estimated costs before generation"
+      }
+    },
+    "dialog": {
+      "title": "Generate Content",
+      "generate": "Generate",
+      "apply": "Apply",
+      "save": "Save to Gallery",
+      "close": "Close",
+      "provider": "Provider",
+      "model": "Model",
+      "prompt": "Prompt",
+      "negativePrompt": "Negative Prompt",
+      "estimatedCost": "Estimated Cost"
+    },
+    "notifications": {
+      "generating": "Generating...",
+      "complete": "Generation complete!",
+      "applied": "Applied successfully!",
+      "saved": "Saved to gallery!",
+      "failed": "Generation failed",
+      "noApiKey": "No API key configured",
+      "permissionDenied": "Permission denied"
+    }
+  }
+}

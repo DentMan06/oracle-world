@@ -1,0 +1,23 @@
+{
+  "name": "oracle-world",
+  "version": "1.0.0",
+  "description": "AI-powered content generation for Foundry VTT",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "keywords": [
+    "foundry-vtt",
+    "ai",
+    "image-generation",
+    "text-generation"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "vitest": "^1.0.0",
+    "fast-check": "^3.15.0"
+  }
+}

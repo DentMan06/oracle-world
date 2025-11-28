@@ -1,0 +1,108 @@
+/* Oracle World Styles */
+
+.oracle-world-generation-dialog {
+  padding: 1rem;
+}
+
+.oracle-world-generation-dialog .dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.oracle-world-generation-dialog label {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.oracle-world-generation-dialog select,
+.oracle-world-generation-dialog textarea,
+.oracle-world-generation-dialog input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.oracle-world-generation-dialog .parameters-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.oracle-world-generation-dialog .cost-section {
+  background: #f5f5f5;
+  padding: 0.75rem;
+  border-radius: 4px;
+}
+
+.oracle-world-generation-dialog .cost-estimate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.oracle-world-generation-dialog .cost-value {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.oracle-world-generation-dialog .result-section {
+  border-top: 2px solid #ddd;
+  padding-top: 1rem;
+}
+
+.oracle-world-generation-dialog .result-preview img {
+  max-width: 100%;
+  border-radius: 4px;
+}
+
+.oracle-world-generation-dialog .dialog-buttons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+}
+
+.oracle-world-generation-dialog button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.oracle-world-generation-dialog .generate-btn {
+  background: #3498db;
+  color: white;
+}
+
+.oracle-world-generation-dialog .apply-btn {
+  background: #27ae60;
+  color: white;
+}
+
+.oracle-world-generation-dialog .save-btn {
+  background: #f39c12;
+  color: white;
+}
+
+.oracle-world-generation-dialog .close-btn {
+  background: #95a5a6;
+  color: white;
+}
+
+.oracle-world-generation-dialog button:hover {
+  opacity: 0.9;
+}
+
+.oracle-world-generation-dialog button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

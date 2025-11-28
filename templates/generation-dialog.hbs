@@ -1,0 +1,93 @@
+<form class="oracle-world-generation-dialog">
+  <div class="dialog-content">
+    <div class="provider-section">
+      <label>Provider:</label>
+      <select name="provider" class="provider-select">
+        {{#each providers}}
+        <option value="{{this.id}}">{{this.name}}</option>
+        {{/each}}
+      </select>
+    </div>
+    
+    <div class="model-section">
+      <label>Model:</label>
+      <select name="model" class="model-select">
+        <option value="">Select a model...</option>
+      </select>
+    </div>
+    
+    <div class="template-section">
+      <label>Template:</label>
+      <select name="template" class="template-select">
+        <option value="">None</option>
+        {{#each templates}}
+        <option value="{{this.id}}">{{this.name}}</option>
+        {{/each}}
+      </select>
+    </div>
+    
+    <div class="prompt-section">
+      <label>Prompt:</label>
+      <textarea name="prompt" rows="4" placeholder="Enter your prompt...">{{prompt}}</textarea>
+    </div>
+    
+    <div class="negative-prompt-section">
+      <label>Negative Prompt:</label>
+      <textarea name="negativePrompt" rows="2" placeholder="What to avoid..."></textarea>
+    </div>
+    
+    <div class="parameters-section">
+      <div class="param-group">
+        <label>Width:</label>
+        <input type="number" name="width" value="1024" min="256" max="2048" step="64">
+      </div>
+      <div class="param-group">
+        <label>Height:</label>
+        <input type="number" name="height" value="1024" min="256" max="2048" step="64">
+      </div>
+      <div class="param-group">
+        <label>Count:</label>
+        <input type="number" name="count" value="1" min="1" max="4">
+      </div>
+    </div>
+    
+    <div class="cost-section">
+      <div class="cost-estimate">
+        <span class="cost-label">Estimated Cost:</span>
+        <span class="cost-value">$0.00</span>
+      </div>
+    </div>
+    
+    {{#if hasResult}}
+    <div class="result-section">
+      <div class="result-preview">
+        {{#if result.images}}
+        {{#each result.images}}
+        <img src="{{this}}" alt="Generated image">
+        {{/each}}
+        {{/if}}
+        {{#if result.text}}
+        <div class="text-result">{{result.text}}</div>
+        {{/if}}
+      </div>
+    </div>
+    {{/if}}
+  </div>
+  
+  <div class="dialog-buttons">
+    <button type="button" class="generate-btn">
+      <i class="fas fa-wand-magic-sparkles"></i> Generate
+    </button>
+    {{#if hasResult}}
+    <button type="button" class="apply-btn">
+      <i class="fas fa-check"></i> Apply
+    </button>
+    <button type="button" class="save-btn">
+      <i class="fas fa-save"></i> Save to Gallery
+    </button>
+    {{/if}}
+    <button type="button" class="close-btn">
+      <i class="fas fa-times"></i> Close
+    </button>
+  </div>
+</form>
