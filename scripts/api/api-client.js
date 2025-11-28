@@ -129,6 +129,8 @@ export default class BaseAPIClient {
     for (let attempt = 0; attempt <= retries; attempt++) {
       try {
         console.log(`${MODULE_ID} | Making ${method} request to ${url} (attempt ${attempt + 1}/${retries + 1})`);
+        console.log(`${MODULE_ID} | Request data:`, data);
+        console.log(`${MODULE_ID} | Request headers:`, { ...requestHeaders, Authorization: 'Bearer ***' });
         
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), this.timeout);
@@ -170,7 +172,13 @@ export default class BaseAPIClient {
         // Handle other errors
         if (!response.ok) {
           const errorData = await response.json().catch(() => ({}));
-          throw this._createError(ERROR_TYPES.GENERIC_ERROR, `API error: ${response.statusText}`, {
+          const errorMessage = errorData.error?.message || errorData.message || response.statusText;
+          console.error(`${MODULE_ID} | API error:`, {
+            status: response.status,
+            statusText: response.statusText,
+            errorData
+          });
+          throw this._createError(ERROR_TYPES.GENERIC_ERROR, `API error: ${errorMessage}`, {
             status: response.status,
             data: errorData
           });
