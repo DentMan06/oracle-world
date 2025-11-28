@@ -44,4 +44,15 @@ export default class MidjourneyClient extends BaseAPIClient {
   async estimateCost(params) {
     return { estimated: false, message: 'Cost estimation not implemented', currency: 'USD' };
   }
+  
+  getAvailableModels(type = 'image') {
+    const models = {
+      image: [
+        { id: 'midjourney-v6', name: 'Midjourney V6', type: 'image', costInfo: 'Subscription' },
+        { id: 'midjourney-v5', name: 'Midjourney V5', type: 'image', costInfo: 'Subscription' }
+      ]
+    };
+    
+    return models[type] || [];
+  }
 }

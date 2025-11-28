@@ -58,4 +58,16 @@ export default class AnthropicClient extends BaseAPIClient {
   async estimateCost(params) {
     return { estimated: false, message: 'Cost estimation not implemented', currency: 'USD' };
   }
+  
+  getAvailableModels(type = 'text') {
+    const models = {
+      text: [
+        { id: 'claude-3-opus-20240229', name: 'Claude 3 Opus', type: 'text', costInfo: '$0.015/1K tokens' },
+        { id: 'claude-3-sonnet-20240229', name: 'Claude 3 Sonnet', type: 'text', costInfo: '$0.003/1K tokens' },
+        { id: 'claude-3-haiku-20240307', name: 'Claude 3 Haiku', type: 'text', costInfo: '$0.00025/1K tokens' }
+      ]
+    };
+    
+    return models[type] || [];
+  }
 }

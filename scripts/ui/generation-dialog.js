@@ -34,10 +34,23 @@ export default class GenerationDialog extends Application {
     const templates = game.oracleWorld.templateManager
       .getByCategory(this.context.documentName.toLowerCase());
     
+    let models = [];
+    if (this.provider) {
+      try {
+        const client = ProviderFactory.create(this.provider);
+        if (client.getAvailableModels) {
+          models = client.getAvailableModels(this.generationType);
+        }
+      } catch (error) {
+        console.warn(`${MODULE_ID} | Could not get models for ${this.provider}:`, error);
+      }
+    }
+    
     return {
       context: this.context,
       type: this.generationType,
       providers,
+      models,
       templates,
       currentProvider: this.provider,
       currentModel: this.model,
@@ -180,8 +193,24 @@ export default class GenerationDialog extends Application {
   }
   
   async _updateModels() {
-    // Would fetch models for selected provider
-    // For now, use placeholder
+    // Reset model selection when provider changes
+    this.model = null;
+    
+    // Get models for the selected provider
+    if (this.provider) {
+      try {
+        const client = ProviderFactory.create(this.provider);
+        if (client.getAvailableModels) {
+          const models = client.getAvailableModels(this.generationType);
+          // Auto-select first model if available
+          if (models.length > 0) {
+            this.model = models[0].id;
+          }
+        }
+      } catch (error) {
+        console.warn(`${MODULE_ID} | Could not get models for ${this.provider}:`, error);
+      }
+    }
   }
   
   async _updateCostEstimate() {

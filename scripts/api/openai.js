@@ -103,4 +103,24 @@ export default class OpenAIClient extends BaseAPIClient {
   async estimateCost(params) {
     return { estimated: false, message: 'Cost estimation not implemented', currency: 'USD' };
   }
+  
+  getAvailableModels(type = 'image') {
+    const models = {
+      image: [
+        { id: 'dall-e-3', name: 'DALL-E 3', type: 'image', costInfo: '$0.04-0.12/image' },
+        { id: 'dall-e-2', name: 'DALL-E 2', type: 'image', costInfo: '$0.02/image' }
+      ],
+      text: [
+        { id: 'gpt-4-turbo', name: 'GPT-4 Turbo', type: 'text', costInfo: '$0.01/1K tokens' },
+        { id: 'gpt-4', name: 'GPT-4', type: 'text', costInfo: '$0.03/1K tokens' },
+        { id: 'gpt-3.5-turbo', name: 'GPT-3.5 Turbo', type: 'text', costInfo: '$0.001/1K tokens' }
+      ],
+      speech: [
+        { id: 'tts-1', name: 'TTS Standard', type: 'speech', costInfo: '$0.015/1M chars' },
+        { id: 'tts-1-hd', name: 'TTS HD', type: 'speech', costInfo: '$0.030/1M chars' }
+      ]
+    };
+    
+    return models[type] || [];
+  }
 }

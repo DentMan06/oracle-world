@@ -364,4 +364,26 @@ export default class OpenRouterClient extends BaseAPIClient {
     // Rough estimation: ~4 characters per token
     return Math.ceil(text.length / 4);
   }
+  
+  /**
+   * Get available models for a specific generation type
+   * @param {string} type - Generation type ('image', 'text', 'speech')
+   * @returns {Array<Object>} Array of model info objects
+   */
+  getAvailableModels(type = 'image') {
+    const models = Object.entries(this.pricing)
+      .filter(([_, info]) => info.type === type)
+      .map(([id, info]) => ({
+        id,
+        name: id,
+        type: info.type,
+        costInfo: type === 'image' 
+          ? `$${info.perImage}/image`
+          : type === 'text'
+          ? `$${info.perToken}/1K tokens`
+          : `$${info.perCharacter}/char`
+      }));
+    
+    return models;
+  }
 }
