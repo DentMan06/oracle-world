@@ -28,5 +28,5 @@
   ],
   "url": "https://github.com/DentMan06/oracle-world",
   "manifest": "https://raw.githubusercontent.com/DentMan06/oracle-world/main/module.json",
-  "download": "https://github.com/DentMan06/oracle-world/archive/refs/heads/main.zip"
+  "download": "https://github.com/DentMan06/oracle-world/releases/download/v1.0.4/oracle-world-v1.0.4.zip"
 }
