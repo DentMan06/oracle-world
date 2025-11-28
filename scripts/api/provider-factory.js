@@ -9,6 +9,7 @@ import OpenRouterClient from './openrouter.js';
 import OpenAIClient from './openai.js';
 import AnthropicClient from './anthropic.js';
 import MidjourneyClient from './midjourney.js';
+import ReplicateClient from './replicate.js';
 
 /**
  * Provider Factory Class
@@ -49,6 +50,9 @@ export default class ProviderFactory {
       case PROVIDERS.GEMINI:
         throw new Error('Gemini client not yet implemented');
         
+      case PROVIDERS.REPLICATE:
+        return new ReplicateClient(apiKey);
+        
       default:
         throw new Error(`Unknown provider: ${providerName}`);
     }
@@ -66,7 +70,8 @@ export default class ProviderFactory {
       { id: PROVIDERS.DEEPSEEK, name: 'DeepSeek' },
       { id: PROVIDERS.MIDJOURNEY, name: 'Midjourney' },
       { id: PROVIDERS.STABLE_DIFFUSION, name: 'Stable Diffusion' },
-      { id: PROVIDERS.GEMINI, name: 'Gemini' }
+      { id: PROVIDERS.GEMINI, name: 'Gemini' },
+      { id: PROVIDERS.REPLICATE, name: 'Replicate' }
     ];
     
     return providers.filter(provider => {
@@ -99,7 +104,8 @@ export default class ProviderFactory {
       [PROVIDERS.DEEPSEEK]: 'deepseekApiKey',
       [PROVIDERS.MIDJOURNEY]: 'midjourneyApiKey',
       [PROVIDERS.STABLE_DIFFUSION]: 'stableDiffusionApiKey',
-      [PROVIDERS.GEMINI]: 'geminiApiKey'
+      [PROVIDERS.GEMINI]: 'geminiApiKey',
+      [PROVIDERS.REPLICATE]: 'replicateApiKey'
     };
     
     const settingKey = keyMap[providerName];

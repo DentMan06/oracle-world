@@ -15,7 +15,8 @@ export const PROVIDERS = {
   DEEPSEEK: 'deepseek',
   MIDJOURNEY: 'midjourney',
   STABLE_DIFFUSION: 'stable-diffusion',
-  GEMINI: 'gemini'
+  GEMINI: 'gemini',
+  REPLICATE: 'replicate'
 };
 
 /**
@@ -63,6 +64,7 @@ export const SETTINGS = {
   MIDJOURNEY_API_KEY: 'midjourneyApiKey',
   STABLE_DIFFUSION_API_KEY: 'stableDiffusionApiKey',
   GEMINI_API_KEY: 'geminiApiKey',
+  REPLICATE_API_KEY: 'replicateApiKey',
   
   // Preferences
   DEFAULT_PROVIDER: 'defaultProvider',

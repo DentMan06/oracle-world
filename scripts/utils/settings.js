@@ -43,7 +43,8 @@ export default class Settings {
       { key: SETTINGS.DEEPSEEK_API_KEY, name: 'DeepSeek', hint: 'Your DeepSeek API key' },
       { key: SETTINGS.MIDJOURNEY_API_KEY, name: 'Midjourney', hint: 'Your Midjourney API key' },
       { key: SETTINGS.STABLE_DIFFUSION_API_KEY, name: 'Stable Diffusion', hint: 'Your Stable Diffusion API key' },
-      { key: SETTINGS.GEMINI_API_KEY, name: 'Gemini', hint: 'Your Google Gemini API key' }
+      { key: SETTINGS.GEMINI_API_KEY, name: 'Gemini', hint: 'Your Google Gemini API key' },
+      { key: SETTINGS.REPLICATE_API_KEY, name: 'Replicate', hint: 'Your Replicate API key' }
     ];
     
     providers.forEach(provider => {
