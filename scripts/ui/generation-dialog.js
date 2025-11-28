@@ -42,17 +42,28 @@ export default class GenerationDialog extends Application {
     let models = [];
     if (this.provider) {
       try {
+        console.log(`${MODULE_ID} | Getting models for provider: ${this.provider}, type: ${this.generationType}`);
         const client = ProviderFactory.create(this.provider);
+        console.log(`${MODULE_ID} | Client created:`, client);
+        console.log(`${MODULE_ID} | Has getAvailableModels:`, typeof client.getAvailableModels);
+        
         if (client.getAvailableModels) {
           models = client.getAvailableModels(this.generationType);
+          console.log(`${MODULE_ID} | Models retrieved:`, models);
+          
           // Auto-select first model if none selected
           if (!this.model && models.length > 0) {
             this.model = models[0].id;
+            console.log(`${MODULE_ID} | Auto-selected model:`, this.model);
           }
+        } else {
+          console.warn(`${MODULE_ID} | Client does not have getAvailableModels method`);
         }
       } catch (error) {
-        console.warn(`${MODULE_ID} | Could not get models for ${this.provider}:`, error);
+        console.error(`${MODULE_ID} | Could not get models for ${this.provider}:`, error);
       }
+    } else {
+      console.warn(`${MODULE_ID} | No provider selected`);
     }
     
     return {
