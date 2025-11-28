@@ -48,43 +48,7 @@ export default class OpenRouterClient extends BaseAPIClient {
    * @returns {Promise<Object>} Generation result
    */
   async generateImage(params) {
-    this._validateParams(params, ['prompt', 'model']);
-    
-    const requestData = {
-      model: params.model,
-      prompt: params.prompt,
-      n: params.count || 1,
-      size: `${params.width || 1024}x${params.height || 1024}`
-    };
-    
-    if (params.negativePrompt) {
-      requestData.negative_prompt = params.negativePrompt;
-    }
-    
-    if (params.quality) {
-      requestData.quality = params.quality;
-    }
-    
-    if (params.style) {
-      requestData.style = params.style;
-    }
-    
-    const response = await this._makeRequest('/images/generations', requestData);
-    
-    return {
-      success: true,
-      type: 'image',
-      provider: this.provider,
-      model: params.model,
-      images: response.data.map(img => img.url),
-      cost: this._calculateImageCost(params),
-      metadata: {
-        prompt: params.prompt,
-        parameters: params,
-        timestamp: Date.now(),
-        requestId: response.id
-      }
-    };
+    throw new Error('Image generation is not supported by OpenRouter. Please use OpenAI, Midjourney, or Stable Diffusion providers for image generation.');
   }
   
   /**
@@ -371,15 +335,19 @@ export default class OpenRouterClient extends BaseAPIClient {
    * @returns {Array<Object>} Array of model info objects
    */
   getAvailableModels(type = 'image') {
+    // OpenRouter doesn't support direct image generation
+    // It only supports text and chat models
+    if (type === 'image') {
+      return [];
+    }
+    
     const models = Object.entries(this.pricing)
       .filter(([_, info]) => info.type === type)
       .map(([id, info]) => ({
         id,
         name: id,
         type: info.type,
-        costInfo: type === 'image' 
-          ? `$${info.perImage}/image`
-          : type === 'text'
+        costInfo: type === 'text'
           ? `$${info.perToken}/1K tokens`
           : `$${info.perCharacter}/char`
       }));
