@@ -34,12 +34,21 @@ export default class GenerationDialog extends Application {
     const templates = game.oracleWorld.templateManager
       .getByCategory(this.context.documentName.toLowerCase());
     
+    // Auto-select first provider if none selected
+    if (!this.provider && providers.length > 0) {
+      this.provider = providers[0].id;
+    }
+    
     let models = [];
     if (this.provider) {
       try {
         const client = ProviderFactory.create(this.provider);
         if (client.getAvailableModels) {
           models = client.getAvailableModels(this.generationType);
+          // Auto-select first model if none selected
+          if (!this.model && models.length > 0) {
+            this.model = models[0].id;
+          }
         }
       } catch (error) {
         console.warn(`${MODULE_ID} | Could not get models for ${this.provider}:`, error);
