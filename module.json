@@ -2,7 +2,7 @@
   "id": "oracle-world",
   "title": "Oracle World",
   "description": "AI-powered content generation for Foundry VTT - Generate images, text, and audio using multiple AI providers",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "authors": [
     {
       "name": "Oracle World Development"
