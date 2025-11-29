@@ -29,7 +29,8 @@ When adding a new AI provider to Oracle World, you MUST update ALL of the follow
 - [ ] Run `npm test tests/unit/settings.test.js` to verify consistency
 - [ ] Test in Foundry VTT that API key field appears
 - [ ] Test that provider appears in dropdown when API key is set
-- [ ] Test actual generation with the provider
+- [ ] **Test actual generation with at least one model** - Don't ship untested code!
+- [ ] Verify all model IDs are real (no placeholders like `8daa6e8c...`)
 
 ### 6. Documentation
 - [ ] Update README.md with new provider
@@ -58,6 +59,7 @@ Before creating a new release:
 3. **Wrong zip structure**: Must run zip from PARENT directory to create `oracle-world/` wrapper folder. Running from inside module directory creates flat structure that breaks Foundry installation
 4. **Missing from choices**: Adding provider but not to default provider dropdown choices
 5. **Cache issues**: Not incrementing version number causes Foundry to use cached code
+6. **Placeholder values**: NEVER use placeholder IDs, API keys, or model versions in production code. Either look up real values or explicitly mark as TODO/incomplete
 
 ## Debugging Steps
 
