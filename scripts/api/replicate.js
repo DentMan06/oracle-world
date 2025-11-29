@@ -18,16 +18,23 @@ export default class ReplicateClient extends BaseAPIClient {
   async generateImage(params) {
     this._validateParams(params, ['prompt', 'model']);
     
+    // Build input object, only including defined values
+    const input = {
+      prompt: params.prompt,
+      width: params.width || 1024,
+      height: params.height || 1024,
+      num_outputs: params.count || 1
+    };
+    
+    // Only add negative_prompt if it's provided
+    if (params.negativePrompt) {
+      input.negative_prompt = params.negativePrompt;
+    }
+    
     // Create prediction
     const prediction = await this._makeRequest('/predictions', {
       version: params.model,
-      input: {
-        prompt: params.prompt,
-        negative_prompt: params.negativePrompt,
-        width: params.width || 1024,
-        height: params.height || 1024,
-        num_outputs: params.count || 1
-      }
+      input: input
     });
     
     // Poll for completion

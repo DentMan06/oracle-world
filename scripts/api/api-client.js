@@ -218,15 +218,22 @@ export default class BaseAPIClient {
         
         // Handle network errors
         if (error.name === 'TypeError' && error.message.includes('fetch')) {
-          console.warn(`${MODULE_ID} | Network error (attempt ${attempt + 1}/${retries + 1})`);
+          console.error(`${MODULE_ID} | Network error (attempt ${attempt + 1}/${retries + 1}):`, error);
+          console.error(`${MODULE_ID} | URL was: ${url}`);
+          console.error(`${MODULE_ID} | Error details:`, {
+            name: error.name,
+            message: error.message,
+            stack: error.stack
+          });
           
           if (attempt < retries) {
             await this._sleep(this._getExponentialBackoff(attempt));
             continue;
           }
           
-          throw this._createError(ERROR_TYPES.NETWORK_ERROR, 'Network error', {
-            originalError: error.message
+          throw this._createError(ERROR_TYPES.NETWORK_ERROR, `Network error: ${error.message}`, {
+            originalError: error.message,
+            url: url
           });
         }
         

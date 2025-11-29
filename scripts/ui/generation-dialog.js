@@ -162,11 +162,17 @@ export default class GenerationDialog extends Application {
     const formData = new FormData(this.element.find('form')[0]);
     const params = this._buildGenerationParams(formData);
     
+    console.log(`${MODULE_ID} | Starting generation with params:`, params);
+    console.log(`${MODULE_ID} | Provider:`, this.provider);
+    console.log(`${MODULE_ID} | Model:`, this.model);
+    
     try {
       ui.notifications.info('Generating...');
       this.element.find('.generate-btn').prop('disabled', true);
       
       const client = ProviderFactory.create(this.provider);
+      console.log(`${MODULE_ID} | Created client:`, client);
+      
       const result = await game.oracleWorld.queueManager.enqueue({
         provider: this.provider,
         execute: () => client.generateImage(params)
@@ -188,7 +194,26 @@ export default class GenerationDialog extends Application {
       
     } catch (error) {
       console.error(`${MODULE_ID} | Generation failed:`, error);
-      ui.notifications.error(`Generation failed: ${error.message}`);
+      console.error(`${MODULE_ID} | Error type:`, error.type);
+      console.error(`${MODULE_ID} | Error details:`, error.details);
+      console.error(`${MODULE_ID} | Full error object:`, {
+        message: error.message,
+        type: error.type,
+        provider: error.provider,
+        details: error.details,
+        stack: error.stack
+      });
+      
+      // Show more helpful error message
+      let errorMessage = error.message;
+      if (error.details?.url) {
+        errorMessage += ` (URL: ${error.details.url})`;
+      }
+      if (error.details?.status) {
+        errorMessage += ` (Status: ${error.details.status})`;
+      }
+      
+      ui.notifications.error(`Generation failed: ${errorMessage}`);
     } finally {
       this.element.find('.generate-btn').prop('disabled', false);
     }
