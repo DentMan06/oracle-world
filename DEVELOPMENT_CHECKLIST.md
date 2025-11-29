@@ -46,15 +46,16 @@ Before creating a new release:
 - [ ] Update download URL in `module.json`
 - [ ] Run all tests
 - [ ] Test in actual Foundry VTT instance
-- [ ] Create clean zip file (no nested folders)
-- [ ] Verify zip contents before uploading
+- [ ] Run `./create-release.sh <version>` to create properly structured zip
+- [ ] Verify zip structure (should show `oracle-world/` wrapper folder)
+- [ ] Test zip file locally in Foundry
 - [ ] Create GitHub release with proper notes
 
 ## Common Mistakes to Avoid
 
 1. **Forgetting helper methods**: Adding provider to registration but not to `hasAnyApiKey()`, `getConfiguredProviders()`, or `_getDefaultValue()`
 2. **Version mismatch**: Updating `module.json` version but not `module.js` VERSION constant or `package.json` version
-3. **Nested zip folders**: Running zip from wrong directory creates nested structure
+3. **Wrong zip structure**: Must run zip from PARENT directory to create `oracle-world/` wrapper folder. Running from inside module directory creates flat structure that breaks Foundry installation
 4. **Missing from choices**: Adding provider but not to default provider dropdown choices
 5. **Cache issues**: Not incrementing version number causes Foundry to use cached code
 
