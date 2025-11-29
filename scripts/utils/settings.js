@@ -80,7 +80,8 @@ export default class Settings {
         [PROVIDERS.DEEPSEEK]: 'DeepSeek',
         [PROVIDERS.MIDJOURNEY]: 'Midjourney',
         [PROVIDERS.STABLE_DIFFUSION]: 'Stable Diffusion',
-        [PROVIDERS.GEMINI]: 'Gemini'
+        [PROVIDERS.GEMINI]: 'Gemini',
+        [PROVIDERS.REPLICATE]: 'Replicate'
       },
       default: PROVIDERS.OPENROUTER
     });
@@ -303,6 +304,7 @@ export default class Settings {
       [SETTINGS.MIDJOURNEY_API_KEY]: '',
       [SETTINGS.STABLE_DIFFUSION_API_KEY]: '',
       [SETTINGS.GEMINI_API_KEY]: '',
+      [SETTINGS.REPLICATE_API_KEY]: '',
       [SETTINGS.DEFAULT_PROVIDER]: PROVIDERS.OPENROUTER,
       [SETTINGS.DEFAULT_IMAGE_MODEL]: '',
       [SETTINGS.DEFAULT_TEXT_MODEL]: '',
@@ -333,7 +335,8 @@ export default class Settings {
       SETTINGS.DEEPSEEK_API_KEY,
       SETTINGS.MIDJOURNEY_API_KEY,
       SETTINGS.STABLE_DIFFUSION_API_KEY,
-      SETTINGS.GEMINI_API_KEY
+      SETTINGS.GEMINI_API_KEY,
+      SETTINGS.REPLICATE_API_KEY
     ];
     
     return apiKeys.some(key => {
@@ -354,7 +357,8 @@ export default class Settings {
       [PROVIDERS.DEEPSEEK]: SETTINGS.DEEPSEEK_API_KEY,
       [PROVIDERS.MIDJOURNEY]: SETTINGS.MIDJOURNEY_API_KEY,
       [PROVIDERS.STABLE_DIFFUSION]: SETTINGS.STABLE_DIFFUSION_API_KEY,
-      [PROVIDERS.GEMINI]: SETTINGS.GEMINI_API_KEY
+      [PROVIDERS.GEMINI]: SETTINGS.GEMINI_API_KEY,
+      [PROVIDERS.REPLICATE]: SETTINGS.REPLICATE_API_KEY
     };
     
     return Object.entries(providerKeys)
