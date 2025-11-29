@@ -42,6 +42,7 @@ Before creating a new release:
 
 - [ ] Update version in `module.json`
 - [ ] Update version in `scripts/module.js` (VERSION constant)
+- [ ] Update version in `package.json` (for development consistency)
 - [ ] Update download URL in `module.json`
 - [ ] Run all tests
 - [ ] Test in actual Foundry VTT instance
@@ -52,7 +53,7 @@ Before creating a new release:
 ## Common Mistakes to Avoid
 
 1. **Forgetting helper methods**: Adding provider to registration but not to `hasAnyApiKey()`, `getConfiguredProviders()`, or `_getDefaultValue()`
-2. **Version mismatch**: Updating `module.json` version but not `module.js` VERSION constant
+2. **Version mismatch**: Updating `module.json` version but not `module.js` VERSION constant or `package.json` version
 3. **Nested zip folders**: Running zip from wrong directory creates nested structure
 4. **Missing from choices**: Adding provider but not to default provider dropdown choices
 5. **Cache issues**: Not incrementing version number causes Foundry to use cached code
