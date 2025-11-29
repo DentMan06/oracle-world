@@ -2,7 +2,7 @@
   "id": "oracle-world",
   "title": "Oracle World",
   "description": "AI-powered content generation for Foundry VTT - Generate images, text, and audio using multiple AI providers",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "authors": [
     {
       "name": "Oracle World Development"
@@ -28,5 +28,5 @@
   ],
   "url": "https://github.com/DentMan06/oracle-world",
   "manifest": "https://raw.githubusercontent.com/DentMan06/oracle-world/main/module.json",
-  "download": "https://github.com/DentMan06/oracle-world/releases/download/v1.1.3/oracle-world-v1.1.3.zip"
+  "download": "https://github.com/DentMan06/oracle-world/releases/download/v1.1.4/oracle-world-v1.1.4.zip"
 }

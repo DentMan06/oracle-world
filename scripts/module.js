@@ -19,7 +19,7 @@ import JournalIntegration from './integrations/journal-integration.js';
 class OracleWorld {
   static ID = MODULE_ID;
   static NAME = MODULE_NAME;
-  static VERSION = '1.1.3';
+  static VERSION = '1.1.4';
   
   /**
    * Initialize the module

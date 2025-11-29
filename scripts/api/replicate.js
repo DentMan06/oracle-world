@@ -92,7 +92,7 @@ export default class ReplicateClient extends BaseAPIClient {
       return [];
     }
     
-    // Comprehensive model list with categories
+    // Verified working models with real Replicate version IDs
     const allModels = [
       // Fast/Quick category
       {
@@ -139,44 +139,10 @@ export default class ReplicateClient extends BaseAPIClient {
         costInfo: '~$0.001/image',
         description: 'Midjourney-style - Good for artistic fantasy illustrations'
       },
-      {
-        id: 'cjwbw/dreamshaper:d6b4d8a5f5c4e5d5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5',
-        name: 'DreamShaper',
-        type: 'image',
-        category: 'fantasy',
-        costInfo: '~$0.002/image',
-        description: 'Vibrant fantasy art - Great for magical scenes and creatures'
-      },
-      {
-        id: 'lucataco/deliberate-v3:8daa6e8c205e60e01c392c5e47a6c6f4d7c1c7f3e5c4e5d5e5e5e5e5e5e5e5e5',
-        name: 'Deliberate v3',
-        type: 'image',
-        category: 'fantasy',
-        costInfo: '~$0.002/image',
-        description: 'Detailed fantasy style - Excellent for D&D character art'
-      },
-      
-      // Realistic/Photorealistic category
-      {
-        id: 'lucataco/realistic-vision-v5:8daa6e8c205e60e01c392c5e47a6c6f4d7c1c7f3e5c4e5d5e5e5e5e5e5e5e5e5',
-        name: 'Realistic Vision v5',
-        type: 'image',
-        category: 'realistic',
-        costInfo: '~$0.002/image',
-        description: 'Photorealistic style - Best for modern/realistic character portraits'
-      },
-      {
-        id: 'lucataco/epicrealism:8daa6e8c205e60e01c392c5e47a6c6f4d7c1c7f3e5c4e5d5e5e5e5e5e5e5e5e5',
-        name: 'Epic Realism',
-        type: 'image',
-        category: 'realistic',
-        costInfo: '~$0.002/image',
-        description: 'Ultra-realistic - Perfect for modern settings and NPCs'
-      },
       
       // Anime/Stylized category
       {
-        id: 'cjwbw/anything-v3:8daa6e8c205e60e01c392c5e47a6c6f4d7c1c7f3e5c4e5d5e5e5e5e5e5e5e5e5',
+        id: 'cjwbw/anything-v3-better-vae:09a5805203f4c12da649ec1923bb7729517ca25fcac790e640eaa9ed66573b65',
         name: 'Anything V3',
         type: 'image',
         category: 'anime',
@@ -213,7 +179,6 @@ export default class ReplicateClient extends BaseAPIClient {
       { id: 'fast', name: 'Fast & Budget', description: 'Quick generation, lower cost' },
       { id: 'quality', name: 'High Quality', description: 'Best quality, slower generation' },
       { id: 'fantasy', name: 'Fantasy & Artistic', description: 'Fantasy art, D&D style' },
-      { id: 'realistic', name: 'Realistic', description: 'Photorealistic portraits' },
       { id: 'anime', name: 'Anime & Stylized', description: 'Anime and cartoon styles' },
       { id: 'custom', name: 'Custom', description: 'Use your own model ID' }
     ];
